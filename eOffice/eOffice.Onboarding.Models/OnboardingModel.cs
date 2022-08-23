@@ -4,6 +4,9 @@
     {
         public Guid UserId { get; set; }
 
+        public SystemAccountModel SystemAccount { get; set; }
+        
+        
         // acounts
         // email
         // name, phone

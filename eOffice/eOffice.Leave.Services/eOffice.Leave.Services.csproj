@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eOffice.Common\eOffice.Common.csproj" />
+    <ProjectReference Include="..\eOffice.Leave.DataAccess\eOffice.Leave.DataAccess.csproj" />
+    <ProjectReference Include="..\eOffice.Leave.Models\eOffice.Leave.Models.csproj" />
+  </ItemGroup>
+
 </Project>

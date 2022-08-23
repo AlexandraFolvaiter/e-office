@@ -1,6 +1,6 @@
 ﻿using StackExchange.Redis;
 
-namespace eOffice.Onboarding.DataAccess.Connections
+namespace eOffice.Common.Redis
 {
     public class QueueMessagesConnection
     {

@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eOffice.Common\eOffice.Common.csproj" />
+  </ItemGroup>
+
 </Project>
