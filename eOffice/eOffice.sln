@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eOffice", "eOffice\eOffice.csproj", "{45674CE5-3182-4665-A7C4-8F9009031030}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45674CE5-3182-4665-A7C4-8F9009031030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45674CE5-3182-4665-A7C4-8F9009031030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45674CE5-3182-4665-A7C4-8F9009031030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45674CE5-3182-4665-A7C4-8F9009031030}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14E8BD53-72D3-4E48-BBA7-6D16276249B8}
+	EndGlobalSection
+EndGlobal
