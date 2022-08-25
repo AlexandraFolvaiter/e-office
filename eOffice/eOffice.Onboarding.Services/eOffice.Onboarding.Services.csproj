@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\eOffice.Common\eOffice.Common.csproj" />
     <ProjectReference Include="..\eOffice.Onboarding.DataAccess\eOffice.Onboarding.DataAccess.csproj" />
     <ProjectReference Include="..\eOffice.Onboarding.Models\eOffice.Onboarding.Models.csproj" />

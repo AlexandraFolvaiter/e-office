@@ -1,0 +1,126 @@
+﻿@page "/onboardings/add-new"
+
+<PageTitle>Onboarding</PageTitle>
+
+@using eOffice.Onboarding.Models
+@using eOffice.Services
+
+@inject IOnboardingService _onboardingService
+@inject NavigationManager _navigationManager
+
+<h1>Onboardings</h1>
+
+<p>This component is for onboarding new employees.</p>
+
+<RadzenTemplateForm Data="@onboarding" Submit="@((OnboardingModel args) => { Submit(); })">
+    <RadzenCard >
+        <div class="row">
+            <div class="col-md-6">
+                <RadzenCard class="m-3" Style="height:100%">
+                    <h3>System Accounts</h3>
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="First Name" />
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenTextBox @bind-value="@onboarding.SystemAccount.FirstName" Class="w-100" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Last Name" />
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenTextBox @bind-value="@onboarding.SystemAccount.LastName" Class="w-100" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="BirthDate" />
+                        </div>
+                        <div class="col-md-8">
+
+                            <RadzenDatePicker TValue="DateTime" @bind-value="@onboarding.SystemAccount.BirthDate" DateFormat="d" Class="w-100" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12  d-flex">
+                            <RadzenCheckBox TValue="bool" @bind-value="@onboarding.SystemAccount.CreateEOfficeAccount" Style="margin-right: 10px;" />
+                            <RadzenLabel Text="Create eOffice account" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 d-flex">
+                            <RadzenCheckBox TValue="bool" @bind-value="@onboarding.SystemAccount.CreateEmail" Style="margin-right: 10px;" />
+                            <RadzenLabel Text="Create company email account" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Message" />
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenTextArea Placeholder="Add extra details..." @bind-value="@onboarding.SystemAccount.Message" Class="w-100" />
+
+                        </div>
+                    </div>
+                </RadzenCard>
+
+            </div>
+            <div class="col-md-6">
+                <RadzenCard class="m-3" Style="height:100%">
+                    <h3>Leave details</h3>
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Sick leave allowed days" />
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenTextBox @bind-value="@onboarding.SystemAccount.FirstName" Class="w-100" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Days off" />
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenTextBox @bind-value="@onboarding.SystemAccount.LastName" Class="w-100" />
+                        </div>
+                    </div>
+
+                </RadzenCard>
+
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 align-items-center d-flex buttons-container">
+                <RadzenButton Text="Cancel" Icon="add_circle_outline" ButtonStyle="ButtonStyle.Light" Click="() => NavigateToOnboardings()" Style="margin:30px 10px 0 0;" />
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Send request" Icon="add_circle_outline" ButtonStyle="ButtonStyle.Info" Style="margin:30px 0 0 10px;" />
+            </div>
+
+        </div>
+
+    </RadzenCard>
+</RadzenTemplateForm>
+
+
+@code {
+    private OnboardingModel onboarding = new OnboardingModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    public void Submit()
+    {
+        _onboardingService.AddOnboarding(onboarding);
+        NavigateToOnboardings();
+    }
+
+    private void NavigateToOnboardings() {
+        _navigationManager.NavigateTo("onboardings");
+    }
+}

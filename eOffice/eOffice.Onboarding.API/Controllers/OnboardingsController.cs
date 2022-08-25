@@ -1,3 +1,4 @@
+using eOffice.Onboarding.Models;
 using eOffice.Onboarding.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,16 +21,10 @@ namespace eOffice.Onboarding.API.Controllers
             return Ok();
         }
 
-
-        //public IActionResult GetById()
-        //{
-        //    return Ok();
-        //}
-
         [HttpPost]
-        public IActionResult Add()
+        public IActionResult Add([FromBody] OnboardingModel model)
         {
-            _onboardingService.Add(new Models.OnboardingModel());
+            _onboardingService.Add(model);
             return Ok();
         }
     }

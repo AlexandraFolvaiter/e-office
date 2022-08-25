@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-new QueueMessagesConnection()
+new QueueMessagesConnection("", "redis-16341.c56.east-us.azure.cloud.redislabs.com:16341,password=qO53loElfTDgZHaeBXIdRSmAeKbbrpro")
     .GetSubscriber()
     .Subscribe(RedisChannelName.LeaveChannel, (channel, message) => Console.WriteLine("Message received from test-channel : " + message));
 

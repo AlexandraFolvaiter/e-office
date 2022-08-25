@@ -4,19 +4,28 @@ namespace eOffice.Common.Redis
 {
     public class QueueMessagesConnection
     {
+        private string _databaseConnectionString;
+        private string _pubSubConnectionString;
+
+
+        public QueueMessagesConnection(string databaseConnectionString, string pubSubConnectionString)
+        {
+            _databaseConnectionString = databaseConnectionString;
+            _pubSubConnectionString = pubSubConnectionString;
+        }
 
         public IDatabase GetConnection()
         {
-            var aa = ConnectionMultiplexer.Connect($"redis-16341.c56.east-us.azure.cloud.redislabs.com:16341,password=qO53loElfTDgZHaeBXIdRSmAeKbbrpro");
+            var connection = ConnectionMultiplexer.Connect(_databaseConnectionString);
 
-            return aa.GetDatabase();
+            return connection.GetDatabase();
         }
 
         public ISubscriber GetSubscriber()
         {
-            var aa = ConnectionMultiplexer.Connect($"redis-16341.c56.east-us.azure.cloud.redislabs.com:16341,password=qO53loElfTDgZHaeBXIdRSmAeKbbrpro");
+            var connection = ConnectionMultiplexer.Connect(_pubSubConnectionString);
 
-            return aa.GetSubscriber();
+            return connection.GetSubscriber();
         }
     }
 }

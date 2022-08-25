@@ -1,6 +1,8 @@
 using eOffice.Common.Redis;
+using eOffice.Onboarding.DataAccess.Connections;
 using eOffice.Onboarding.Services.Contracts;
 using eOffice.Onboarding.Services.Implementation;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +13,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// DI
+// TODO: move into an extension
+var databaseConnection = builder.Configuration["ConnectionStrings:Database"];
+var pubSubConnection = builder.Configuration["ConnectionStrings:PubSubDatabase"];
+var connection = new QueueMessagesConnection(databaseConnection, pubSubConnection);
+
+builder.Services.AddTransient<QueueMessagesConnection>(x => connection);
+
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseSqlServer(databaseConnection));
+
+              
 builder.Services.AddTransient<IOnboardingService, OnboardingService>();
-builder.Services.AddTransient<QueueMessagesConnection>();
+
+// TODO: add into an extension the subscribe part
+
 
 var app = builder.Build();
 
