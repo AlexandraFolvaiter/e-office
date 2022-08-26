@@ -17,14 +17,16 @@ namespace eOffice.Onboarding.Services.Implementation
         {
             var entity = _repository.GetById(message.OnboardingId);
 
-            if(message.UpdateType == UpdateType.SystemAccountsRequest)
+            switch (message.UpdateType)
             {
-                entity.IsSystemAccountsRequestCreated = message.UpdateValue;
-            }
-
-            if (message.UpdateType == UpdateType.LeaveOnboardingRequest)
-            {
-                entity.IsLeaveRequestCreated = message.UpdateValue;
+                case UpdateType.SystemAccountsRequest:
+                    entity.IsSystemAccountsRequestCreated = message.UpdateValue;
+                    break;
+                case UpdateType.LeaveOnboardingRequest:
+                    entity.IsLeaveRequestCreated = message.UpdateValue;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             _repository.Update(entity);

@@ -1,4 +1,3 @@
-using eOffice.Common.Models;
 using eOffice.Common.Redis;
 using eOffice.Leave.DataAccess.Connections;
 using eOffice.Leave.DataAccess.Repositories;

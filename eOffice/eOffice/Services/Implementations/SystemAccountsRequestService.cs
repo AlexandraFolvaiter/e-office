@@ -1,8 +1,6 @@
-﻿using eOffice.Onboarding.Models;
-using eOffice.Services.Contracts;
+﻿using eOffice.Services.Contracts;
 using eOffice.SystemAccounts.Models;
 using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace eOffice.Services.Implementations
 {

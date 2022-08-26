@@ -1,5 +1,4 @@
-﻿using eOffice.Onboarding.Models;
-using eOffice.SystemAccounts.Models;
+﻿using eOffice.SystemAccounts.Models;
 
 namespace eOffice.Services.Contracts
 {

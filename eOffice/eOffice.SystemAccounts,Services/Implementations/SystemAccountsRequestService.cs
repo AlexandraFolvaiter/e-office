@@ -1,6 +1,5 @@
 ﻿using eOffice.Common.Models;
 using eOffice.Common.Redis;
-using eOffice.Leave.DataAccess.Entities;
 using eOffice.SystemAccounts.DataAccess.Repositories;
 using eOffice.SystemAccounts.Models;
 using eOffice.SystemAccounts_Services.Mappers;
