@@ -75,29 +75,35 @@
             </div>
             <div class="col-md-6">
                 <RadzenCard class="m-3" Style="height:100%">
-                    <h3>Leave details</h3>
+                    <h3>Leave balance details</h3>
                     <div class="row">
                         <div class="col-md-4 align-items-center d-flex">
-                            <RadzenLabel Text="Sick leave allowed days" />
-                        </div>
-                        <div class="col-md-8">
-                            <RadzenTextBox Class="w-100" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 align-items-center d-flex">
-                            <RadzenLabel Text="Days off" />
-                        </div>
-                        <div class="col-md-8">
-                            <RadzenTextBox Class="w-100" />
-                        </div>
-                    </div>
+                            <RadzenLabel Text="Allocated days off" />
 
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenNumeric TValue="int" @bind-value="@onboarding.Leave.DaysOff" Class="w-100" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Allocated learning days" />
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenNumeric TValue="int" @bind-value="@onboarding.Leave.LearningDays" Class="w-100" />
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Allocated unpaid days off" />
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenNumeric TValue="int" @bind-value="@onboarding.Leave.UnpaidDaysOff" Class="w-100" />
+                        </div>
+                    </div>
                 </RadzenCard>
-
             </div>
-
-
         </div>
 
         <div class="row">
@@ -105,7 +111,6 @@
                 <RadzenButton Text="Cancel" Icon="add_circle_outline" ButtonStyle="ButtonStyle.Light" Click="() => NavigateToOnboardings()" Style="margin:30px 10px 0 0;" />
                 <RadzenButton ButtonType="ButtonType.Submit" Text="Send request" Icon="add_circle_outline" ButtonStyle="ButtonStyle.Info" Style="margin:30px 0 0 10px;" />
             </div>
-
         </div>
 
     </RadzenCard>

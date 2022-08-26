@@ -12,4 +12,14 @@
     <ProjectReference Include="..\eOffice.Leave.Models\eOffice.Leave.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="Implementations\" />
+    <Folder Include="Mapper\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
 </Project>

@@ -6,7 +6,6 @@
 
         public SystemAccountModel SystemAccount { get; set; } = new SystemAccountModel();
 
-        // leave details
-        // leave details: sick leave, daysoff, etc
+        public LeaveBalanceModel Leave { get; set; } = new LeaveBalanceModel();
     }
 }

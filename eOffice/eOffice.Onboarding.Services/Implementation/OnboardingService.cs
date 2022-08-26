@@ -26,13 +26,15 @@ namespace eOffice.Onboarding.Services.Implementation
 
             _repository.Add(onboardingEntity);
 
-            // onboard system accounts
+            // system accounts
             var systemAccountRequest = onboardingModel.SystemAccount.ToEntity(onboardingEntity.Id);
             var systemAccountDetails = JsonConvert.SerializeObject(systemAccountRequest);
-            _databaseSubscriber.Publish(RedisChannelName.SystemAccountsChannel, new RedisValue(systemAccountDetails));
+            _databaseSubscriber.Publish(RedisChannelName.SystemAccountsChannel, systemAccountDetails);
 
-            // onboard leave
-            _databaseSubscriber.Publish(RedisChannelName.LeaveChannel, new RedisValue("leave message"));
+            // leave details
+            var message = onboardingModel.Leave.ToEntity(onboardingEntity.Id);
+            var messageAsString = JsonConvert.SerializeObject(message);
+            _databaseSubscriber.Publish(RedisChannelName.LeaveChannel, messageAsString);
         }
 
         public IList<OnboardingGetModel> GetAllByUserId(Guid userId)

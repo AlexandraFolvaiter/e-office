@@ -1,6 +1,12 @@
+using eOffice.Common.Models;
 using eOffice.Common.Redis;
-using eOffice.Onboarding.DataAccess.Connections;
+using eOffice.Leave.DataAccess.Connections;
+using eOffice.Leave.DataAccess.Repositories;
+using eOffice.Leave.Models;
+using eOffice.Leave.Services.Contracts;
+using eOffice.Leave.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +18,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // DI databases
-// TODO: move into an extension
 var databaseConnection = builder.Configuration["ConnectionStrings:Database"];
 var pubSubConnection = builder.Configuration["ConnectionStrings:PubSubDatabase"];
 
@@ -23,11 +28,22 @@ builder.Services.AddTransient<QueueMessagesConnection>(x => connection);
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(databaseConnection));
 
-
-
-
 connection.GetSubscriber()
-    .Subscribe(RedisChannelName.LeaveChannel, (channel, message) => Console.WriteLine("Message received from test-channel : " + message));
+    .Subscribe(RedisChannelName.LeaveChannel, (channel, message) =>
+    {
+        var serviceProvider = builder?.Services?.BuildServiceProvider();
+        var service = serviceProvider?.GetService<ILeaveService>();
+
+        var messageAsObject = JsonConvert.DeserializeObject<LeaveBalanceModel>(message);
+
+        service?.Add(messageAsObject);
+    });
+
+// DI services
+builder.Services.AddTransient<ILeaveService, LeaveService>();
+
+// DI repositories
+builder.Services.AddTransient<ILeaveRepository, LeaveRepository>();
 
 var app = builder.Build();
 
