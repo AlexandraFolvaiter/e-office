@@ -7,6 +7,6 @@ namespace eOffice.Onboarding.DataAccess.Connections
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options) => Database.Migrate();
 
-        public DbSet<Onboarding> Onboardings { get; set; }
+        public DbSet<Entities.Onboarding> Onboardings { get; set; }
     }
 }

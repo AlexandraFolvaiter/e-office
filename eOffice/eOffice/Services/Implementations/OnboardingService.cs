@@ -1,7 +1,8 @@
 ﻿using eOffice.Onboarding.Models;
+using eOffice.Services.Contracts;
 using Newtonsoft.Json;
 
-namespace eOffice.Services
+namespace eOffice.Services.Implementations
 {
     public class OnboardingService : IOnboardingService
     {
@@ -11,6 +12,17 @@ namespace eOffice.Services
         {
             _httpClient = new HttpClient();
         }
+
+        public async Task<IList<OnboardingGetModel>> GetAll(Guid userId)
+        {
+            // TODO: add these details to appsettingsjson
+            var response = await _httpClient.GetAsync($"https://localhost:7237/Onboardings/{userId}");
+            string responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<IList<OnboardingGetModel>>(responseBody);
+
+            return result;
+        }
+
         public Task AddOnboarding(OnboardingModel model)
         {
             string json = JsonConvert.SerializeObject(model);

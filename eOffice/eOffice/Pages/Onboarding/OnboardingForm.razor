@@ -3,7 +3,8 @@
 <PageTitle>Onboarding</PageTitle>
 
 @using eOffice.Onboarding.Models
-@using eOffice.Services
+@using eOffice.Services;
+@using eOffice.Services.Contracts
 
 @inject IOnboardingService _onboardingService
 @inject NavigationManager _navigationManager
@@ -40,7 +41,11 @@
                         </div>
                         <div class="col-md-8">
 
-                            <RadzenDatePicker TValue="DateTime" @bind-value="@onboarding.SystemAccount.BirthDate" DateFormat="d" Class="w-100" />
+                            <RadzenDatePicker 
+                                TValue="DateTime" 
+                                @bind-value="@onboarding.SystemAccount.BirthDate"
+                                DateFormat="d"
+                                Class="w-100" />
 
                         </div>
                     </div>
@@ -76,7 +81,7 @@
                             <RadzenLabel Text="Sick leave allowed days" />
                         </div>
                         <div class="col-md-8">
-                            <RadzenTextBox @bind-value="@onboarding.SystemAccount.FirstName" Class="w-100" />
+                            <RadzenTextBox Class="w-100" />
                         </div>
                     </div>
                     <div class="row">
@@ -84,7 +89,7 @@
                             <RadzenLabel Text="Days off" />
                         </div>
                         <div class="col-md-8">
-                            <RadzenTextBox @bind-value="@onboarding.SystemAccount.LastName" Class="w-100" />
+                            <RadzenTextBox Class="w-100" />
                         </div>
                     </div>
 
@@ -116,11 +121,14 @@
 
     public void Submit()
     {
+        onboarding.UserId = Guid.Parse("7ba0f49c-8f7e-4f90-b514-f920cbdc74ff");
+
         _onboardingService.AddOnboarding(onboarding);
         NavigateToOnboardings();
     }
 
-    private void NavigateToOnboardings() {
+    private void NavigateToOnboardings()
+    {
         _navigationManager.NavigateTo("onboardings");
     }
 }

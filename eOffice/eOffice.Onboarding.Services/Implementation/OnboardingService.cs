@@ -1,6 +1,8 @@
 ﻿using eOffice.Common.Redis;
+using eOffice.Onboarding.DataAccess.Repositories.Contracts;
 using eOffice.Onboarding.Models;
 using eOffice.Onboarding.Services.Contracts;
+using eOffice.Onboarding.Services.Mappers;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -9,32 +11,36 @@ namespace eOffice.Onboarding.Services.Implementation
     public class OnboardingService : IOnboardingService
     {
         private readonly ISubscriber _databaseSubscriber;
-        private readonly IDatabase _onboardingsDatabase;
+        private readonly IOnboardingRepository _repository;
 
-        public OnboardingService(QueueMessagesConnection queueMessagesConnection)
+        public OnboardingService(QueueMessagesConnection queueMessagesConnection, IOnboardingRepository repository)
         {
-            _onboardingsDatabase = queueMessagesConnection.GetConnection();
             _databaseSubscriber = queueMessagesConnection.GetSubscriber();
+            _repository = repository;
         }
-        
+
         public void Add(OnboardingModel onboardingModel)
         {
-            // TODO: move to repository
-            //var userId = Guid.Parse("7ba0f49c-8f7e-4f90-b514-f920cbdc74ff");
-            //var entity = new DataAccess.Onboarding(userId);
-            //var key = string.Format(RedisKeys.Onboarding, entity.Id);
+            var name = $"{onboardingModel.SystemAccount.FirstName} {onboardingModel.SystemAccount.LastName}";
+            var onboardingEntity = new DataAccess.Entities.Onboarding(onboardingModel.UserId, name);
 
-            //_onboardingsDatabase.StringSet(key, JsonConvert.SerializeObject(entity));
-
-            //var aa = _onboardingsDatabase.StringGet(key);
-            //var asssa = _onboardingsDatabase.HashKeys("*");
+            _repository.Add(onboardingEntity);
 
             // onboard system accounts
-            var systemAccountDetails = JsonConvert.SerializeObject(onboardingModel.SystemAccount);
+            var systemAccountRequest = onboardingModel.SystemAccount.ToEntity(onboardingEntity.Id);
+            var systemAccountDetails = JsonConvert.SerializeObject(systemAccountRequest);
             _databaseSubscriber.Publish(RedisChannelName.SystemAccountsChannel, new RedisValue(systemAccountDetails));
 
             // onboard leave
             _databaseSubscriber.Publish(RedisChannelName.LeaveChannel, new RedisValue("leave message"));
+        }
+
+        public IList<OnboardingGetModel> GetAllByUserId(Guid userId)
+        {
+            return _repository
+                .GetAllByUserId(userId)
+                .Select(o => o.ToModel())
+                .ToList();
         }
     }
 }

@@ -1,4 +1,6 @@
 using eOffice.Common.Redis;
+using eOffice.Onboarding.DataAccess.Connections;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +11,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-new QueueMessagesConnection("", "redis-16341.c56.east-us.azure.cloud.redislabs.com:16341,password=qO53loElfTDgZHaeBXIdRSmAeKbbrpro")
-    .GetSubscriber()
+// DI databases
+// TODO: move into an extension
+var databaseConnection = builder.Configuration["ConnectionStrings:Database"];
+var pubSubConnection = builder.Configuration["ConnectionStrings:PubSubDatabase"];
+
+var connection = new QueueMessagesConnection(pubSubConnection);
+
+builder.Services.AddTransient<QueueMessagesConnection>(x => connection);
+
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseSqlServer(databaseConnection));
+
+
+
+
+connection.GetSubscriber()
     .Subscribe(RedisChannelName.LeaveChannel, (channel, message) => Console.WriteLine("Message received from test-channel : " + message));
 
 var app = builder.Build();

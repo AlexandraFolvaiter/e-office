@@ -1,0 +1,66 @@
+﻿@page "/accounts-requests"
+
+<PageTitle>Accounts Requests</PageTitle>
+
+@using eOffice.Onboarding.Models
+@using eOffice.Services;
+@using eOffice.Services.Contracts
+@using eOffice.SystemAccounts.Models
+
+@inject DialogService _dialogService
+@inject NavigationManager _nav
+@inject ISystemAccountsRequestService _systemAccountsRequests;
+
+<h1>Accounts Requests</h1>
+
+@if (_requests == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowSorting="true" PageSize="10" AllowPaging="true" ShowPagingSummary="true" Data="@_requests" TItem="SystemAccountsRequestGetModel" ColumnWidth="300px">
+        <Columns>
+            <RadzenDataGridColumn TItem="SystemAccountsRequestGetModel" Property="IsCompleted" Title="Status" Filterable="false" Frozen="true" Width="50px">
+                <Template Context="model">
+                    <div>
+                        @if (model.IsCompleted)
+                        {
+                            <RadzenButton Icon="check_circle" ButtonStyle="ButtonStyle.Success" Text="Completed" />
+                        }
+                        else
+                        {
+                            <RadzenButton Icon="warning_amber" ButtonStyle="ButtonStyle.Warning" Text="Pending" />
+                        }
+                    </div>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="SystemAccountsRequestGetModel" Property="FirstName" Filterable="false" Title="First Name" Frozen="true" Width="140px" />
+            <RadzenDataGridColumn TItem="SystemAccountsRequestGetModel" Property="LastName" Filterable="false" Title="Last Name" Frozen="true" Width="140px" />
+            <RadzenDataGridColumn TItem="SystemAccountsRequestGetModel" Sortable="false" Filterable="false" Title="Actions" Width="60px">
+                <Template Context="data">
+                    <RadzenButton ButtonStyle="ButtonStyle.Info" Text="See details & resolve" Icon="north_east" Click="() => OpenDetails(data.Id)"/>
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+}
+
+@code {
+    private IList<SystemAccountsRequestGetModel> _requests;
+    private Guid userId = Guid.Parse("7ba0f49c-8f7e-4f90-b514-f920cbdc74ff");
+
+    protected override async Task OnInitializedAsync()
+    {
+        _requests = await _systemAccountsRequests.GetAll();
+    }
+
+    private async Task OpenDetails(Guid id) {
+        await _dialogService.OpenAsync<AccountsRequestsForm>(
+            "Accounts Request Details",
+               new Dictionary<string, object>() { { "Id", id} },
+               new DialogOptions() { Width = "700px", Height = "570px", Resizable = true, Draggable = true });
+    }
+
+    // patch => dialog
+}

@@ -1,0 +1,89 @@
+﻿@page "/accounts-requests/{Id}"
+
+<PageTitle>Accounts Request Details</PageTitle>
+
+@using eOffice.Onboarding.Models
+@using eOffice.Services;
+@using eOffice.Services.Contracts
+@using eOffice.SystemAccounts.Models
+
+@inject DialogService _dialogService
+@inject NavigationManager _nav
+@inject ISystemAccountsRequestService _systemAccountsRequestsService;
+
+
+@if (_request == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col col-4">First name</div>
+            <div class="col col-8">@_request.FirstName</div>
+        </div>
+
+        <div class="row">
+            <div class="col col-4">Last name</div>
+            <div class="col col-8">@_request.LastName</div>
+        </div>
+
+        <div class="row">
+            <div class="col col-4">Birth Date</div>
+            <div class="col col-8">@_request.BirthDate</div>
+        </div>
+
+        <div class="row">
+            <div class="col col-4">Create eOffice account</div>
+            <div class="col col-8">
+                <RadzenCheckBox @bind-Value="@_request.CreateEOfficeAccount" Disabled="true" TValue="bool" />
+                </div>
+        </div>
+        <div class="row">
+            <div class="col col-4">Create system email</div>
+            <div class="col col-8">
+                <RadzenCheckBox @bind-Value="@_request.CreateEmail" Disabled="true" TValue="bool" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-4">Extra details</div>
+            <div class="col col-8">@_request.Message</div>
+        </div>
+
+        <div class="row">
+            <div class="col col-4">Response message</div>
+            <div class="col col-8"> <RadzenTextArea @bind-Value="_request.ResponseMessage" Rows="5" Class="w-100" /></div>
+        </div>
+        <div class="row buttons-container">
+            <div class="col-md-12 text-right">
+                <RadzenButton Click="@((args) => _dialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Style="width: 120px" Class="mr-1" />
+                <RadzenButton Click="() => Submit()" Text="Complete request" />
+            </div>
+        </div>
+    </div>
+
+}
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private SystemAccountsRequestGetModel _request;
+    private Guid userId = Guid.Parse("7ba0f49c-8f7e-4f90-b514-f920cbdc74ff");
+
+    protected override async Task OnInitializedAsync()
+    {
+        _request = await _systemAccountsRequestsService.GetById(Id);
+    }
+
+    private async Task Submit(){
+        var model = new SystemAccountsRequestPatchModel {
+                Id = _request.Id,
+                ResponseMessage = _request.ResponseMessage
+            };
+        await _systemAccountsRequestsService.Patch(model);
+        _dialogService.Close(true);
+    }
+}

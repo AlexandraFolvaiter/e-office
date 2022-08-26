@@ -1,11 +1,21 @@
-using eOffice.Services;
+using eOffice.Services.Contracts;
+using eOffice.Services.Implementations;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+// DI
 builder.Services.AddTransient<IOnboardingService, OnboardingService>();
+builder.Services.AddTransient<ISystemAccountsRequestService, SystemAccountsRequestService>();
+
+builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<TooltipService>();
+builder.Services.AddScoped<ContextMenuService>();
 
 var app = builder.Build();
 

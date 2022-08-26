@@ -1,0 +1,12 @@
+﻿.row {
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.row>div:first-child {
+    font-weight: bold;
+}
+
+.buttons-container {
+    margin-top: 60px;
+}

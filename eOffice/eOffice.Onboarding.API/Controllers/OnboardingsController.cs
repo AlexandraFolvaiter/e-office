@@ -15,10 +15,12 @@ namespace eOffice.Onboarding.API.Controllers
             _onboardingService = onboardingService;
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpGet("{userId:Guid}")]
+        public IActionResult GetAllByUserId(Guid userId)
         {
-            return Ok();
+            var result = _onboardingService.GetAllByUserId(userId);
+
+            return Ok(result);
         }
 
         [HttpPost]

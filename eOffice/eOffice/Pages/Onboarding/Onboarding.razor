@@ -3,9 +3,12 @@
 <PageTitle>Onboarding</PageTitle>
 
 @using eOffice.Onboarding.Models
+@using eOffice.Services;
+@using eOffice.Services.Contracts
 
 
 @inject NavigationManager _nav
+@inject IOnboardingService _onboardingService;
 
 <h1>Onboardings</h1>
 
@@ -19,32 +22,44 @@
 }
 else
 {
- <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowSorting="true" PageSize="10" AllowPaging="true" ShowPagingSummary="true" Data="@_onboardings" TItem="OnboardingModel" ColumnWidth="300px" >
-    <Columns>
-        <RadzenDataGridColumn TItem="OnboardingModel" Property="EmployeeID" Filterable="false" Title="Status" Frozen="true" Width="70px"/>
-        <RadzenDataGridColumn TItem="OnboardingModel" Property="EmployeeID" Filterable="false" Title="ID" Frozen="true" Width="70px"/>
-        <RadzenDataGridColumn TItem="OnboardingModel" Property="FirstName" Title="First Name" Frozen="true" Width="140px" />
-        <RadzenDataGridColumn TItem="OnboardingModel" Property="LastName" Title="Last Name" Width="140px" />
-        <RadzenDataGridColumn TItem="OnboardingModel" Sortable="false" Filterable="false" Title="Actions" Width="60px">
-            <Template Context="data">
-                    <RadzenButton ButtonStyle="ButtonStyle.Info" Text="See details" Icon="north_east"/>
-            </Template>
-        </RadzenDataGridColumn>
-    </Columns>
-</RadzenDataGrid>
+    <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowSorting="true" PageSize="10" AllowPaging="true" ShowPagingSummary="true" Data="@_onboardings" TItem="OnboardingGetModel" ColumnWidth="300px">
+        <Columns>
+            <RadzenDataGridColumn TItem="OnboardingGetModel" Property="IsComplete" Title="Status" Filterable="false" Frozen="true" Width="50px">
+                <Template Context="model">
+                    <div>
+                        @if (model.IsComplete)
+                        {
+                            <RadzenButton Icon="check_circle" ButtonStyle="ButtonStyle.Success" Text="Completed" />
+                        }
+                        else
+                        {
+                            <RadzenButton Icon="warning_amber" ButtonStyle="ButtonStyle.Warning" Text="Pending" />
+                        }
+                    </div>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="OnboardingGetModel" Property="Name" Filterable="false" Title="For" Frozen="true" Width="140px" />
+            <RadzenDataGridColumn TItem="OnboardingGetModel" Property="CreatedDate" Title="Created Date" Frozen="true" Width="70px" />
+            <RadzenDataGridColumn TItem="OnboardingGetModel" Sortable="false" Filterable="false" Title="Actions" Width="60px">
+                <Template Context="data">
+                    <RadzenButton ButtonStyle="ButtonStyle.Info" Text="See details" Icon="north_east" />
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
 }
 
 @code {
-    private IList<OnboardingModel> _onboardings = new List<OnboardingModel>();
+    private IList<OnboardingGetModel> _onboardings;
+    private Guid userId = Guid.Parse("7ba0f49c-8f7e-4f90-b514-f920cbdc74ff");
 
     protected override async Task OnInitializedAsync()
     {
-        _onboardings.Add(new OnboardingModel());
-        _onboardings.Add(new OnboardingModel());
-        _onboardings.Add(new OnboardingModel());
+        _onboardings = await _onboardingService.GetAll(userId);
     }
 
-    private void NavigateToAdd() {
+    private void NavigateToAdd()
+    {
         _nav.NavigateTo("onboardings/add-new");
     }
 }
