@@ -2,7 +2,7 @@
 {
     public class OnboardUpdateMessage
     {
-        // enum TypeUpdate
+        public UpdateType UpdateType { get; set; }
         public Guid OnboardingId { get; set; }
         public bool UpdateValue { get; set; }
         public string UpdateMessage { get; set; }

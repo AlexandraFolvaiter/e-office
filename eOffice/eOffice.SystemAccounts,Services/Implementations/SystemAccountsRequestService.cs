@@ -1,17 +1,23 @@
-﻿using eOffice.SystemAccounts.DataAccess.Repositories;
+﻿using eOffice.Common.Models;
+using eOffice.Common.Redis;
+using eOffice.Leave.DataAccess.Entities;
+using eOffice.SystemAccounts.DataAccess.Repositories;
 using eOffice.SystemAccounts.Models;
 using eOffice.SystemAccounts_Services.Mappers;
 using Newtonsoft.Json;
+using StackExchange.Redis;
 
 namespace eOffice.SystemAccounts_Services.Implementations
 {
     public class SystemAccountsRequestService : ISystemAccountsRequestService
     {
         private readonly ISystemAccountsRequestRepository _systemAccountsRequestRepository;
+        private readonly ISubscriber _pubSubSubscriber;
 
-        public SystemAccountsRequestService(ISystemAccountsRequestRepository systemAccountsRequestRepository)
+        public SystemAccountsRequestService(ISystemAccountsRequestRepository systemAccountsRequestRepository, QueueMessagesConnection connection)
         {
             _systemAccountsRequestRepository = systemAccountsRequestRepository;
+            _pubSubSubscriber = connection.GetSubscriber();
         }
 
         public IList<SystemAccountsRequestGetModel> GetAll()
@@ -33,6 +39,26 @@ namespace eOffice.SystemAccounts_Services.Implementations
             var entity = modelObject.ToEntity();
 
             _systemAccountsRequestRepository.Add(entity);
+        }
+
+        public void Update(SystemAccountsRequestPatchModel model)
+        {
+            var entity = _systemAccountsRequestRepository.GetById(model.Id);
+            entity.ResponseMessage = model.ResponseMessage;
+            entity.IsCompleted = true;
+
+            _systemAccountsRequestRepository.Update(entity);
+
+
+            var onboardingUpdateMessage = new OnboardUpdateMessage
+            {
+                UpdateType = UpdateType.SystemAccountsRequest,
+                OnboardingId = entity.OnboardingId,
+                UpdateValue = true
+            };
+
+            var updateDetails = JsonConvert.SerializeObject(onboardingUpdateMessage);
+            _pubSubSubscriber.Publish(RedisChannelName.OnboardingChannel, new RedisValue(updateDetails));
         }
     }
 }

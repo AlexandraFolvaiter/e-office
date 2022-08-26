@@ -8,5 +8,6 @@ namespace eOffice.SystemAccounts_Services.Implementations
         IList<SystemAccountsRequestGetModel> GetAll();
         SystemAccountsRequestGetModel GetById(Guid id);
         void Add(string model);
+        void Update(SystemAccountsRequestPatchModel model);
     }
 }

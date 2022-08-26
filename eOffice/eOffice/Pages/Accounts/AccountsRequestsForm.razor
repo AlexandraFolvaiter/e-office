@@ -54,12 +54,20 @@ else
 
         <div class="row">
             <div class="col col-4">Response message</div>
-            <div class="col col-8"> <RadzenTextArea @bind-Value="_request.ResponseMessage" Rows="5" Class="w-100" /></div>
+            <div class="col col-8">
+                @if(_request.IsCompleted)
+                {
+                    @_request.ResponseMessage
+                }else {
+                    <RadzenTextArea @bind-Value="_request.ResponseMessage" Rows="5" Class="w-100" />
+                }
+            </div>
+                
         </div>
         <div class="row buttons-container">
             <div class="col-md-12 text-right">
                 <RadzenButton Click="@((args) => _dialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Style="width: 120px" Class="mr-1" />
-                <RadzenButton Click="() => Submit()" Text="Complete request" />
+                <RadzenButton Click="() => Submit()" Disabled="@_request.IsCompleted" Text="Complete request" />
             </div>
         </div>
     </div>

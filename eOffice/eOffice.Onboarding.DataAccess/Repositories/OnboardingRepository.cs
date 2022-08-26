@@ -11,6 +11,18 @@ namespace eOffice.Onboarding.DataAccess.Repositories
         {
             _context = context;
         }
+        public IQueryable<Entities.Onboarding> GetAllByUserId(Guid userId)
+        {
+            return _context
+                .Onboardings
+                .Where(o => o.UserId.Equals(userId));
+        }
+        public Entities.Onboarding GetById(Guid id)
+        {
+            return _context
+                .Onboardings
+                .FirstOrDefault(o => o.Id.Equals(id));
+        }
 
         public void Add(Entities.Onboarding onboarding)
         {
@@ -18,11 +30,10 @@ namespace eOffice.Onboarding.DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<Entities.Onboarding> GetAllByUserId(Guid userId)
+        public void Update(Entities.Onboarding onboarding)
         {
-            return _context
-                .Onboardings
-                .Where(o => o.UserId.Equals(userId));
+            _context.Onboardings.Update(onboarding);
+            _context.SaveChanges();
         }
     }
 }

@@ -34,7 +34,8 @@ namespace eOffice.SystemAccounts.API.Controllers
         [HttpPatch]
         public IActionResult Patch([FromBody] SystemAccountsRequestPatchModel model)
         {
-            // do something
+            _requestService.Update(model);
+
             return Ok();
         }
     }
