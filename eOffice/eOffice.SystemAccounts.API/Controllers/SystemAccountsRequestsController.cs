@@ -1,5 +1,5 @@
 using eOffice.SystemAccounts.Models;
-using eOffice.SystemAccounts_Services.Contracts;
+using eOffice.SystemAccounts.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eOffice.SystemAccounts.API.Controllers

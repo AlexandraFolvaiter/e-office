@@ -1,8 +1,8 @@
 using eOffice.Common.Redis;
 using eOffice.SystemAccounts.DataAccess.Connections;
 using eOffice.SystemAccounts.DataAccess.Repositories;
+using eOffice.SystemAccounts.Services.Contracts;
 using eOffice.SystemAccounts.Services.Implementations;
-using eOffice.SystemAccounts_Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,11 +42,8 @@ connection.GetSubscriber()
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
