@@ -1,25 +1,23 @@
 ﻿using eOffice.Onboarding.Models;
 using eOffice.Services.Contracts;
-using eOffice.SystemAccounts.Models;
-using Newtonsoft.Json;
 
 namespace eOffice.Services.Implementations;
 
 public class LeaveBalanceService : ILeaveBalanceService
 {
-    private readonly HttpClient _httpClient;
-
-    public LeaveBalanceService()
+    private readonly CustomHttpClient _httpClient;
+    private readonly string _baseUrl;
+    public LeaveBalanceService(IConfiguration config)
     {
-        _httpClient = new HttpClient();
+        _httpClient = new CustomHttpClient();
+        _baseUrl = config["Services:LeaveBalanceService"];
     }
 
     public async Task<LeaveBalanceModel> GetByOnboardingId(Guid onboardingId)
     {
-        // TODO: add these details to appsettingsjson
-        var response = await _httpClient.GetAsync($"https://localhost:7031/LeaveBalances/details/{onboardingId}");
-        string responseBody = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<LeaveBalanceModel>(responseBody);
+        var url = $"{_baseUrl}/details/{onboardingId}";
+
+        var result = await _httpClient.Get<LeaveBalanceModel>(url);
 
         return result;
     }

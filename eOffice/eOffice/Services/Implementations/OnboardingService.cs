@@ -1,46 +1,39 @@
 ﻿using eOffice.Onboarding.Models;
 using eOffice.Services.Contracts;
-using Newtonsoft.Json;
 
 namespace eOffice.Services.Implementations
 {
     public class OnboardingService : IOnboardingService
     {
-        private readonly HttpClient _httpClient;
+        private readonly CustomHttpClient _httpClient;
+        private readonly string _baseUrl;
 
-        public OnboardingService()
+        public OnboardingService(IConfiguration configuration)
         {
-            _httpClient = new HttpClient();
+            _httpClient = new CustomHttpClient();
+            _baseUrl = configuration["Services:OnboardingService"];
         }
 
         public async Task<IList<OnboardingGetModel>> GetAll(Guid userId)
         {
-            // TODO: add these details to appsettingsjson
-            var response = await _httpClient.GetAsync($"https://localhost:7237/Onboardings/{userId}");
-            string responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<IList<OnboardingGetModel>>(responseBody);
+            var url = $"{_baseUrl}/{userId}";
+            var result = await _httpClient.Get<IList<OnboardingGetModel>>(url);
 
             return result;
         }
 
         public async Task<OnboardingGetModel> GetById(Guid id)
         {
-            // TODO: add these details to appsettingsjson
-            var response = await _httpClient.GetAsync($"https://localhost:7237/Onboardings/Details/{id}");
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<OnboardingGetModel>(responseBody);
+            var url = $"{_baseUrl}/Details/{id}";
+
+            var result = await _httpClient.Get<OnboardingGetModel>(url);
 
             return result;
         }
 
         public Task AddOnboarding(OnboardingModel model)
         {
-            var json = JsonConvert.SerializeObject(model);
-
-            StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-            // TODO: add these details to appsettingsjson
-            return _httpClient.PostAsync("https://localhost:7237/Onboardings", httpContent);
+            return _httpClient.Post(_baseUrl, model);
         }
     }
 }

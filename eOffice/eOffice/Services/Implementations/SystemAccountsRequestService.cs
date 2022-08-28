@@ -1,56 +1,45 @@
 ﻿using eOffice.Services.Contracts;
 using eOffice.SystemAccounts.Models;
-using Newtonsoft.Json;
 
 namespace eOffice.Services.Implementations
 {
     public class SystemAccountsRequestService : ISystemAccountsRequestService
     {
-        private readonly HttpClient _httpClient;
+        private readonly CustomHttpClient _httpClient;
+        private readonly string _baseUrl;
 
-        public SystemAccountsRequestService()
+        public SystemAccountsRequestService(IConfiguration config)
         {
-            _httpClient = new HttpClient();
+            _httpClient = new CustomHttpClient();
+            _baseUrl = config["Services:SystemAccountsRequestService"];
         }
 
         public async Task<IList<SystemAccountsRequestGetModel>> GetAll()
         {
-            // TODO: add these details to appsettingsjson
-            var response = await _httpClient.GetAsync($"https://localhost:7064/SystemAccountsRequests");
-            string responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<IList<SystemAccountsRequestGetModel>>(responseBody);
+            var result = await _httpClient.Get<IList<SystemAccountsRequestGetModel>>(_baseUrl);
 
             return result;
         }
 
         public async Task<SystemAccountsRequestGetModel> GetById(Guid id)
         {
-            // TODO: add these details to appsettingsjson
-            var response = await _httpClient.GetAsync($"https://localhost:7064/SystemAccountsRequests/{id}");
-            string responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<SystemAccountsRequestGetModel>(responseBody);
+            var url = $"{_baseUrl}/{id}";
+            var result = await _httpClient.Get<SystemAccountsRequestGetModel>(url);
 
             return result;
         }
 
         public async Task<SystemAccountsRequestGetModel> GetByOnboardingId(Guid onboardingId)
         {
-            // TODO: add these details to appsettingsjson
-            var response = await _httpClient.GetAsync($"https://localhost:7064/SystemAccountsRequests/details/{onboardingId}");
-            string responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<SystemAccountsRequestGetModel>(responseBody);
+            var url = $"{_baseUrl}/details/{onboardingId}";
+            var result = await _httpClient.Get<SystemAccountsRequestGetModel>(url);
 
             return result;
         }
 
         public Task Patch(SystemAccountsRequestPatchModel model)
         {
-            string json = JsonConvert.SerializeObject(model);
-
-            StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-            // TODO: add these details to appsettingsjson
-            return _httpClient.PatchAsync("https://localhost:7064/SystemAccountsRequests", httpContent);
+            return _httpClient.Patch(_baseUrl, model);
         }
     }
 }
