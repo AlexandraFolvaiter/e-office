@@ -1,4 +1,4 @@
-﻿using eOffice.Leave.DataAccess.Entities;
+﻿using eOffice.SystemAccounts.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace eOffice.SystemAccounts.DataAccess.Connections

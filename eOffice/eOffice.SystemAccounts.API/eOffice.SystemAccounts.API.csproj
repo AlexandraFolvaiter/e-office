@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\eOffice.SystemAccounts,Services\eOffice.SystemAccounts.Services.csproj" />
+    <ProjectReference Include="..\eOffice.SystemAccounts.Services\eOffice.SystemAccounts.Services.csproj" />
   </ItemGroup>
 
 </Project>

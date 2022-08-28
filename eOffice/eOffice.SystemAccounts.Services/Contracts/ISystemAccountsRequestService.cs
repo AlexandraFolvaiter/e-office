@@ -1,7 +1,7 @@
 ﻿
 using eOffice.SystemAccounts.Models;
 
-namespace eOffice.SystemAccounts_Services.Contracts
+namespace eOffice.SystemAccounts.Services.Contracts
 {
     public interface ISystemAccountsRequestService
     {

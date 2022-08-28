@@ -1,7 +1,7 @@
-﻿using eOffice.Leave.DataAccess.Entities;
+﻿using eOffice.SystemAccounts.DataAccess.Entities;
 using eOffice.SystemAccounts.Models;
 
-namespace eOffice.SystemAccounts_Services.Mappers
+namespace eOffice.SystemAccounts.Services.Mappers
 {
     public static class SystemAccountRequestMapper
     {

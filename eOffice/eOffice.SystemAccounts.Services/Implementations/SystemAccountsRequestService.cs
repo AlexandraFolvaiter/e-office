@@ -2,12 +2,12 @@
 using eOffice.Common.Redis;
 using eOffice.SystemAccounts.DataAccess.Repositories;
 using eOffice.SystemAccounts.Models;
-using eOffice.SystemAccounts_Services.Contracts;
-using eOffice.SystemAccounts_Services.Mappers;
+using eOffice.SystemAccounts.Services.Contracts;
+using eOffice.SystemAccounts.Services.Mappers;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
-namespace eOffice.SystemAccounts_Services.Implementations
+namespace eOffice.SystemAccounts.Services.Implementations
 {
     public class SystemAccountsRequestService : ISystemAccountsRequestService
     {

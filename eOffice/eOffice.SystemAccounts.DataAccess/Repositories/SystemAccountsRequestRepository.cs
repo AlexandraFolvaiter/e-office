@@ -1,5 +1,5 @@
-﻿using eOffice.Leave.DataAccess.Entities;
-using eOffice.SystemAccounts.DataAccess.Connections;
+﻿using eOffice.SystemAccounts.DataAccess.Connections;
+using eOffice.SystemAccounts.DataAccess.Entities;
 
 namespace eOffice.SystemAccounts.DataAccess.Repositories
 {

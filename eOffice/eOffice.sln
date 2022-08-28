@@ -21,21 +21,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOffice.Onboarding.Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOffice.Onboarding.API", "eOffice.Onboarding.API\eOffice.Onboarding.API.csproj", "{872725E7-F7AC-4006-877E-96D1453B5AB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eOffice.Onboarding.Models", "eOffice.Onboarding.Models\eOffice.Onboarding.Models.csproj", "{F065ECB5-2911-4879-B6C6-DDFCC51B19C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOffice.Onboarding.Models", "eOffice.Onboarding.Models\eOffice.Onboarding.Models.csproj", "{F065ECB5-2911-4879-B6C6-DDFCC51B19C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eOffice.Common", "eOffice.Common\eOffice.Common.csproj", "{32028976-6899-4B3D-9CFB-E26B03357212}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOffice.Common", "eOffice.Common\eOffice.Common.csproj", "{32028976-6899-4B3D-9CFB-E26B03357212}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SystemAccountsModule", "SystemAccountsModule", "{23E32287-CBA5-440F-9293-6086D92EE9A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eOffice.Leave.API", "eOffice.Leave.API\eOffice.Leave.API.csproj", "{E39A64B9-1524-434D-BF2A-86BF00851532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOffice.Leave.API", "eOffice.Leave.API\eOffice.Leave.API.csproj", "{E39A64B9-1524-434D-BF2A-86BF00851532}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eOffice.SystemAccounts.API", "eOffice.SystemAccounts.API\eOffice.SystemAccounts.API.csproj", "{C581618A-4E83-43F1-80AD-F32F06D039AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOffice.SystemAccounts.API", "eOffice.SystemAccounts.API\eOffice.SystemAccounts.API.csproj", "{C581618A-4E83-43F1-80AD-F32F06D039AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eOffice.SystemAccounts.Services", "eOffice.SystemAccounts,Services\eOffice.SystemAccounts.Services.csproj", "{AC93A8D4-580F-4910-811F-51CA4E553DF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOffice.SystemAccounts.Models", "eOffice.SystemAccounts.Models\eOffice.SystemAccounts.Models.csproj", "{0027BF7D-EE7B-4BE1-8F84-53615183FCE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eOffice.SystemAccounts.Models", "eOffice.SystemAccounts.Models\eOffice.SystemAccounts.Models.csproj", "{0027BF7D-EE7B-4BE1-8F84-53615183FCE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOffice.SystemAccounts.DataAccess", "eOffice.SystemAccounts.DataAccess\eOffice.SystemAccounts.DataAccess.csproj", "{68F11222-C3F9-4B0E-B75E-F4C0E076EE06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eOffice.SystemAccounts.DataAccess", "eOffice.SystemAccounts.DataAccess\eOffice.SystemAccounts.DataAccess.csproj", "{68F11222-C3F9-4B0E-B75E-F4C0E076EE06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOffice.SystemAccounts.Services", "eOffice.SystemAccounts.Services\eOffice.SystemAccounts.Services.csproj", "{38DA67C2-D6EC-46C4-AC1C-BA7EE6CC5C9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,10 +87,6 @@ Global
 		{C581618A-4E83-43F1-80AD-F32F06D039AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C581618A-4E83-43F1-80AD-F32F06D039AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C581618A-4E83-43F1-80AD-F32F06D039AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC93A8D4-580F-4910-811F-51CA4E553DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC93A8D4-580F-4910-811F-51CA4E553DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC93A8D4-580F-4910-811F-51CA4E553DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC93A8D4-580F-4910-811F-51CA4E553DF3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0027BF7D-EE7B-4BE1-8F84-53615183FCE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0027BF7D-EE7B-4BE1-8F84-53615183FCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0027BF7D-EE7B-4BE1-8F84-53615183FCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -99,6 +95,10 @@ Global
 		{68F11222-C3F9-4B0E-B75E-F4C0E076EE06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68F11222-C3F9-4B0E-B75E-F4C0E076EE06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68F11222-C3F9-4B0E-B75E-F4C0E076EE06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38DA67C2-D6EC-46C4-AC1C-BA7EE6CC5C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38DA67C2-D6EC-46C4-AC1C-BA7EE6CC5C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38DA67C2-D6EC-46C4-AC1C-BA7EE6CC5C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38DA67C2-D6EC-46C4-AC1C-BA7EE6CC5C9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,9 +113,9 @@ Global
 		{F065ECB5-2911-4879-B6C6-DDFCC51B19C6} = {6B3F5329-5E52-40C9-A51E-576595FDA739}
 		{E39A64B9-1524-434D-BF2A-86BF00851532} = {BF3E335F-F17E-47D6-A8E4-E1C58D3DFE4F}
 		{C581618A-4E83-43F1-80AD-F32F06D039AA} = {23E32287-CBA5-440F-9293-6086D92EE9A4}
-		{AC93A8D4-580F-4910-811F-51CA4E553DF3} = {23E32287-CBA5-440F-9293-6086D92EE9A4}
 		{0027BF7D-EE7B-4BE1-8F84-53615183FCE7} = {23E32287-CBA5-440F-9293-6086D92EE9A4}
 		{68F11222-C3F9-4B0E-B75E-F4C0E076EE06} = {23E32287-CBA5-440F-9293-6086D92EE9A4}
+		{38DA67C2-D6EC-46C4-AC1C-BA7EE6CC5C9A} = {23E32287-CBA5-440F-9293-6086D92EE9A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14E8BD53-72D3-4E48-BBA7-6D16276249B8}

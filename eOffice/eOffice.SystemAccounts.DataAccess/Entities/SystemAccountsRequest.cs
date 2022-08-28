@@ -1,4 +1,4 @@
-﻿namespace eOffice.Leave.DataAccess.Entities
+﻿namespace eOffice.SystemAccounts.DataAccess.Entities
 {
     public class SystemAccountsRequest
     {

@@ -1,8 +1,8 @@
 using eOffice.Common.Redis;
 using eOffice.SystemAccounts.DataAccess.Connections;
 using eOffice.SystemAccounts.DataAccess.Repositories;
+using eOffice.SystemAccounts.Services.Implementations;
 using eOffice.SystemAccounts_Services.Contracts;
-using eOffice.SystemAccounts_Services.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +15,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // DI databases
-// TODO: move into an extension
 var databaseConnection = builder.Configuration["ConnectionStrings:Database"];
 var pubSubConnection = builder.Configuration["ConnectionStrings:PubSubDatabase"];
 
@@ -31,7 +30,6 @@ builder.Services.AddTransient<ISystemAccountsRequestService, SystemAccountsReque
 // DI repositories
 builder.Services.AddTransient<ISystemAccountsRequestRepository, SystemAccountsRequestRepository>();
 
-//
 connection.GetSubscriber()
     .Subscribe(RedisChannelName.SystemAccountsChannel, (channel, message) =>
     {
@@ -40,9 +38,6 @@ connection.GetSubscriber()
 
         service?.Add(message);
     });
-
-
-//
 
 var app = builder.Build();
 

@@ -18,7 +18,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // DI databases
-// TODO: move into an extension
 var databaseConnection = builder.Configuration["ConnectionStrings:Database"];
 var pubSubConnection = builder.Configuration["ConnectionStrings:PubSubDatabase"];
 
@@ -37,7 +36,6 @@ builder.Services.AddTransient<IOnboardingPubSubService, OnboardingPubSubService>
 builder.Services.AddTransient<IOnboardingRepository, OnboardingRepository>();
 
 
-// TODO: add into an extension the subscribe part
 connection
     .GetSubscriber()
     .Subscribe(RedisChannelName.OnboardingChannel, (channel, message) =>
