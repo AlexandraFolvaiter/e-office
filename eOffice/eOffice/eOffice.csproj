@@ -8,11 +8,13 @@
 
   <ItemGroup>
     <None Remove="Pages\Accounts\AccountsRequestsForm.razor.css" />
+    <None Remove="Pages\Onboarding\OnboardingDetails.razor.css" />
     <None Remove="Pages\Onboarding\OnboardingForm.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Pages\Accounts\AccountsRequestsForm.razor.css" />
+    <Content Include="Pages\Onboarding\OnboardingDetails.razor.css" />
     <Content Include="Pages\Onboarding\OnboardingForm.razor.css" />
   </ItemGroup>
 
@@ -24,6 +26,10 @@
   <ItemGroup>
     <ProjectReference Include="..\eOffice.Onboarding.Models\eOffice.Onboarding.Models.csproj" />
     <ProjectReference Include="..\eOffice.SystemAccounts.Models\eOffice.SystemAccounts.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

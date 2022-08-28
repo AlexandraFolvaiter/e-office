@@ -1,4 +1,5 @@
 using eOffice.SystemAccounts.Models;
+using eOffice.SystemAccounts_Services.Contracts;
 using eOffice.SystemAccounts_Services.Implementations;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,14 @@ namespace eOffice.SystemAccounts.API.Controllers
         public IActionResult GetById(Guid id)
         {
             var result = _requestService.GetById(id);
+
+            return Ok(result);
+        }
+
+        [HttpGet("details/{id:Guid}")]
+        public IActionResult GetByOnboardingId(Guid id)
+        {
+            var result = _requestService.GetByOnboardingId(id);
 
             return Ok(result);
         }

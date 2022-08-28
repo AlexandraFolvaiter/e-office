@@ -33,6 +33,16 @@ namespace eOffice.Services.Implementations
             return result;
         }
 
+        public async Task<SystemAccountsRequestGetModel> GetByOnboardingId(Guid onboardingId)
+        {
+            // TODO: add these details to appsettingsjson
+            var response = await _httpClient.GetAsync($"https://localhost:7064/SystemAccountsRequests/details/{onboardingId}");
+            string responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<SystemAccountsRequestGetModel>(responseBody);
+
+            return result;
+        }
+
         public Task Patch(SystemAccountsRequestPatchModel model)
         {
             string json = JsonConvert.SerializeObject(model);

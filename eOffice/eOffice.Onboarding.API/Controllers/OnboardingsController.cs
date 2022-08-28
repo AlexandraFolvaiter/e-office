@@ -23,6 +23,14 @@ namespace eOffice.Onboarding.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("details/{id:Guid}")]
+        public IActionResult GetById(Guid id)
+        {
+            var result = _onboardingService.GetById(id);
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public IActionResult Add([FromBody] OnboardingModel model)
         {

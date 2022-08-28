@@ -5,7 +5,6 @@
 @using eOffice.SystemAccounts.Models
 
 @inject DialogService _dialogService
-@inject NavigationManager _nav
 @inject ISystemAccountsRequestService _systemAccountsRequestsService;
 
 
@@ -63,8 +62,8 @@ else
         </div>
         <div class="row buttons-container">
             <div class="col-md-12 text-right">
-                <RadzenButton Click="@((args) => _dialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Style="width: 120px" Class="mr-1" />
-                <RadzenButton Click="() => Submit()" Disabled="@_request.IsCompleted" Text="Complete request" />
+                <RadzenButton Click="@(() => _dialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Style="width: 120px" Class="mr-1" />
+                <RadzenButton Click="Submit" Disabled="@_request.IsCompleted" Text="Complete request" />
             </div>
         </div>
     </div>
@@ -76,7 +75,6 @@ else
     public Guid Id { get; set; }
 
     private SystemAccountsRequestGetModel _request;
-    private Guid userId = Guid.Parse("7ba0f49c-8f7e-4f90-b514-f920cbdc74ff");
 
     protected override async Task OnInitializedAsync()
     {
@@ -89,6 +87,7 @@ else
                 ResponseMessage = _request.ResponseMessage
             };
         await _systemAccountsRequestsService.Patch(model);
+
         _dialogService.Close(true);
     }
 }

@@ -2,6 +2,7 @@
 using eOffice.Common.Redis;
 using eOffice.SystemAccounts.DataAccess.Repositories;
 using eOffice.SystemAccounts.Models;
+using eOffice.SystemAccounts_Services.Contracts;
 using eOffice.SystemAccounts_Services.Mappers;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -30,6 +31,14 @@ namespace eOffice.SystemAccounts_Services.Implementations
         {
             return _systemAccountsRequestRepository
                 .GetById(id).ToModel();
+        }
+
+        public SystemAccountsRequestGetModel GetByOnboardingId(Guid onboardingId)
+        {
+            return _systemAccountsRequestRepository
+                .GetAll()
+                .FirstOrDefault(a => a.OnboardingId.Equals(onboardingId))
+                .ToModel();
         }
 
         public void Add(string model)

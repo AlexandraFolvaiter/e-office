@@ -4,16 +4,18 @@
 
 @using eOffice.Onboarding.Models
 @using eOffice.Services.Contracts
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 
 
 @inject NavigationManager _nav
 @inject IOnboardingService _onboardingService;
+@inject ProtectedLocalStorage BrowserStorage
 
 <h1>Onboardings</h1>
 
 <p>This component is for onboarding new employees.</p>
 
-<RadzenButton Text="Onboard a new employee" Icon="add_circle_outline" Click="() => NavigateToAdd()" />
+<RadzenButton Text="Onboard a new employee" Icon="add_circle_outline" Click="NavigateToAdd" ButtonStyle="ButtonStyle.Info" Style="margin-bottom: 20px;" />
 
 @if (_onboardings == null)
 {
@@ -41,7 +43,7 @@ else
             <RadzenDataGridColumn TItem="OnboardingGetModel" Property="CreatedDate" Title="Created Date" Frozen="true" Width="70px" />
             <RadzenDataGridColumn TItem="OnboardingGetModel" Sortable="false" Filterable="false" Title="Actions" Width="60px">
                 <Template Context="data">
-                    <RadzenButton ButtonStyle="ButtonStyle.Info" Text="See details" Icon="north_east" />
+                    <RadzenButton ButtonStyle="ButtonStyle.Info" Text="See details" Click="() => NavigateToDetails(data.Id)" Icon="north_east" />
                 </Template>
             </RadzenDataGridColumn>
         </Columns>
@@ -50,15 +52,25 @@ else
 
 @code {
     private IList<OnboardingGetModel> _onboardings;
-    private Guid userId = Guid.Parse("7ba0f49c-8f7e-4f90-b514-f920cbdc74ff");
+    private Guid userId;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        _onboardings = await _onboardingService.GetAll(userId);
+        if (firstRender)
+        {
+            userId = (await BrowserStorage.GetAsync<Guid>("userId")).Value;
+            _onboardings = await _onboardingService.GetAll(userId);
+            StateHasChanged();
+        }
     }
 
     private void NavigateToAdd()
     {
         _nav.NavigateTo("onboardings/add-new");
+    }
+
+    private void NavigateToDetails(Guid id)
+    {
+        _nav.NavigateTo($"onboardings/details/{id}");
     }
 }

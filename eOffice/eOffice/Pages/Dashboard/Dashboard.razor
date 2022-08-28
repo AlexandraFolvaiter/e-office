@@ -1,0 +1,178 @@
+﻿@page "/dashboard"
+@using System.Globalization
+@using eOffice.Models
+
+<PageTitle>Dashboard</PageTitle>
+
+    <div class="row">
+        <div class="col col-6">
+            <RadzenCard class="m-3" Style="height: 370px">
+                <h2>Employee details</h2>
+                <div>
+                    All data contained by this page is mock data.
+                </div>
+               
+                <div style="font-size: 20px; margin-top: 30px;">
+                    <div class="row">
+                        <div class="col col-4" style="font-weight: bold;">First Name</div>
+                        <div class="col col-8">Ana Maria</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-4" style="font-weight: bold;">Name</div>
+                        <div class="col col-8">Popescu</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-4" style="font-weight: bold;">Birth date</div>
+                        <div class="col col-8">1990-12-03</div>
+                    </div>
+                </div>
+            </RadzenCard>
+        </div>
+        
+        <div class="col col-6">
+            <RadzenCard class="m-3" Style="height: 370px">
+                <h2>Leave Balance</h2>
+                <div class="row">
+                    <div class="col col-8">
+                        <RadzenChart>
+                            <RadzenPieSeries Data="@leaveDetails" Title="Leave Balance" CategoryProperty="Entry" ValueProperty="Value">
+                                <RadzenSeriesDataLabels Visible="true" />
+                            </RadzenPieSeries>
+                        </RadzenChart>
+                    </div>
+                    <div class="col col-4">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Text="Create a leave request"></RadzenButton>
+
+                    </div>
+                </div>
+               
+            </RadzenCard>
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="col col-6">
+            <RadzenCard class="m-3">
+                <h2>Salary</h2>
+                <div>
+                    <RadzenChart>
+                        <RadzenLineSeries Smooth="true" Data="@salary" CategoryProperty="Entry" Title="2022" LineType="LineType.Dashed" ValueProperty="Value">
+                            <RadzenMarkers MarkerType="MarkerType.Square" />
+                            <RadzenSeriesDataLabels Visible="true" />
+                        </RadzenLineSeries>
+                        <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth" />
+                        <RadzenValueAxis Formatter="@FormatAsUSD">
+                            <RadzenGridLines Visible="true" />
+                            <RadzenAxisTitle Text="Revenue in EUR" />
+                        </RadzenValueAxis>
+                    </RadzenChart>
+                </div>
+            </RadzenCard>
+        </div>
+        
+        <div class="col col-6">
+            <RadzenCard class="m-3" Style="height: 370px">
+                <h2>Leave Balance</h2>
+                <div>
+                    <RadzenChart>
+                        <RadzenBarSeries Data="@leaveDetails" CategoryProperty="Entry" Title="Leave balance" LineType="LineType.Dashed" ValueProperty="Value">
+                            <RadzenSeriesDataLabels Visible="true" />
+                        </RadzenBarSeries>
+                        <RadzenBarSeries Data="@usedLeaveDetails" CategoryProperty="Entry" Title="Used Leave balance" LineType="LineType.Dashed" ValueProperty="Value">
+                            <RadzenSeriesDataLabels Visible="true" />
+                        </RadzenBarSeries>
+                        <RadzenValueAxis>
+                            <RadzenGridLines Visible="true" />
+                            <RadzenAxisTitle Text="Number of days" />
+                        </RadzenValueAxis>
+                        <RadzenBarOptions Radius="5" />
+                    </RadzenChart>
+                </div>
+            </RadzenCard>
+        </div>
+    </div>
+
+@code
+{
+    readonly DataItem[] leaveDetails = {
+        new DataItem
+        {
+            Entry = "Days off",
+            Value = 23
+        },
+      
+        new DataItem
+        {
+            Entry = "Unpaid days off",
+            Value = 20
+        },
+        new DataItem
+        {
+            Entry = "Learning Days",
+            Value = 5
+        }
+    };
+
+    readonly DataItem[] usedLeaveDetails = new DataItem[] {
+        new DataItem
+        {
+            Entry = "Days off",
+            Value = 12
+        },
+
+        new DataItem
+        {
+            Entry = "Unpaid days off",
+            Value = 3
+        },
+        new DataItem
+        {
+            Entry = "Learning Days",
+            Value = 5
+        }
+    };
+
+    readonly DataItem[] salary = {
+        new DataItem
+        {
+            Entry = "2022-01-01",
+            Value = 234000
+        },
+      
+        new DataItem
+        {
+            Entry = "2022-02-01",
+            Value = 284000
+        },
+        new DataItem
+        {
+            Entry = "2022-03-01",
+            Value = 273000
+        },
+        new DataItem
+        {
+            Entry = "2022-04-01",
+            Value = 282000
+        },
+        new DataItem
+        {
+            Entry = "2022-05-01",
+            Value = 289000
+        },
+        new DataItem
+        {
+            Entry = "2022-06-01",
+            Value = 294000
+        }
+    };
+
+    static string FormatAsMonth(object value)
+    {
+        return value != null ? Convert.ToDateTime(value).ToString("MMM") : string.Empty;
+    }
+
+    string FormatAsUSD(object value)
+    {
+        return ((double)value).ToString("C0", CultureInfo.CreateSpecificCulture("en-US"));
+    }
+}

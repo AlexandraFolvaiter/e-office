@@ -1,0 +1,10 @@
+﻿h2 {
+    margin-top: 5px;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+.row>div:first-child {
+    font-weight: bold;
+}

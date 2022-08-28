@@ -1,6 +1,11 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using eOffice.Services
+
+@inject ProtectedLocalStorage BrowserStorage
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">eOffice</a>
+        <a class="navbar-brand" href=""><img src="images/logo-2.png" /></a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,25 +15,27 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Dashboard
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="leave">
-                <span class="oi oi-calendar" aria-hidden="true"></span> Leave
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="accounts-requests">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Accounts Requests
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="onboardings">
-                <span class="oi oi-aperture" aria-hidden="true"></span> Onboardings
-            </NavLink>
-        </div>
+        @if (userId.IsOperator())
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="accounts-requests">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Accounts Requests
+                </NavLink>
+            </div>
+        }
+      
+        @if (userId.IsManager())
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="onboardings">
+                    <span class="oi oi-aperture" aria-hidden="true"></span> Onboardings
+                </NavLink>
+            </div>
+        }
     </nav>
 </div>
 
@@ -36,6 +43,17 @@
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private Guid userId;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            userId = (await BrowserStorage.GetAsync<Guid>("userId")).Value;
+            StateHasChanged();
+        }
+    }
 
     private void ToggleNavMenu()
     {

@@ -19,6 +19,19 @@ namespace eOffice.Onboarding.Services.Implementation
             _repository = repository;
         }
 
+        public IList<OnboardingGetModel> GetAllByUserId(Guid userId)
+        {
+            return _repository
+                .GetAllByUserId(userId)
+                .Select(o => o.ToModel())
+                .ToList();
+        }
+
+        public OnboardingGetModel GetById(Guid id)
+        {
+            return _repository.GetById(id).ToModel();
+        }
+
         public void Add(OnboardingModel onboardingModel)
         {
             var name = $"{onboardingModel.SystemAccount.FirstName} {onboardingModel.SystemAccount.LastName}";
@@ -35,14 +48,6 @@ namespace eOffice.Onboarding.Services.Implementation
             var message = onboardingModel.Leave.ToEntity(onboardingEntity.Id);
             var messageAsString = JsonConvert.SerializeObject(message);
             _databaseSubscriber.Publish(RedisChannelName.LeaveChannel, messageAsString);
-        }
-
-        public IList<OnboardingGetModel> GetAllByUserId(Guid userId)
-        {
-            return _repository
-                .GetAllByUserId(userId)
-                .Select(o => o.ToModel())
-                .ToList();
         }
     }
 }

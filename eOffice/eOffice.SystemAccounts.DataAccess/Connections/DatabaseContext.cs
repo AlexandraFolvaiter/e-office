@@ -1,7 +1,7 @@
 ﻿using eOffice.Leave.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace eOffice.Onboarding.DataAccess.Connections
+namespace eOffice.SystemAccounts.DataAccess.Connections
 {
     public class DatabaseContext : DbContext
     {

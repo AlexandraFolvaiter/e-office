@@ -1,3 +1,4 @@
+using eOffice.Services;
 using eOffice.Services.Contracts;
 using eOffice.Services.Implementations;
 using Radzen;
@@ -11,6 +12,7 @@ builder.Services.AddServerSideBlazor();
 // DI
 builder.Services.AddTransient<IOnboardingService, OnboardingService>();
 builder.Services.AddTransient<ISystemAccountsRequestService, SystemAccountsRequestService>();
+builder.Services.AddTransient<ILeaveBalanceService, LeaveBalanceService>();
 
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();

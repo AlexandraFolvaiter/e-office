@@ -1,0 +1,201 @@
+﻿@page "/onboardings/details/{Id}"
+
+<PageTitle>Onboarding details</PageTitle>
+
+@using eOffice.Onboarding.Models
+@using eOffice.Services.Contracts
+@using eOffice.SystemAccounts.Models
+
+@inject IOnboardingService _onboardingService
+@inject ISystemAccountsRequestService _systemAccountsRequestService
+@inject ILeaveBalanceService _leaveBalanceService
+
+@if (onboarding != null)
+{
+    <div class="row">
+        <div class="col col-md-12 align-items-center d-flex buttons-container">
+            @if (onboarding.IsComplete)
+            {
+                <RadzenButton Icon="check_circle" ButtonStyle="ButtonStyle.Success" Text="Completed" Style="margin-right: 20px;" />
+            }
+            else
+            {
+                <RadzenButton Icon="warning_amber" ButtonStyle="ButtonStyle.Warning" Text="Pending" Style="margin-right: 20px;"/>
+            }
+            <h2> @onboarding.Name</h2>
+
+        </div>
+    </div>
+}
+else
+{
+    <h2>Loading..</h2>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <RadzenCard class="m-3" Style="height: 100%">
+
+            <div class="row">
+                @if (onboarding != null)
+                {
+                    <div class="col col-md-12 d-flex buttons-container">
+                        @if (onboarding.IsSystemAccountsRequestCreated)
+                        {
+                            <RadzenButton Icon="check_circle" ButtonStyle="ButtonStyle.Success" Text="Completed" Style="margin-right: 20px;"/>
+                        }
+                        else
+                        {
+                            <RadzenButton Icon="warning_amber" ButtonStyle="ButtonStyle.Warning" Text="Pending" Style="margin-right: 20px;"/>
+                        }
+                        
+                        <h2>System accounts request</h2>
+
+                    </div>
+                }
+            </div>
+            
+            @if (systemAccountsRequest != null)
+            {
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <RadzenLabel Text="First Name"/>
+                    </div>
+                    <div class="col-md-8">
+                        @systemAccountsRequest.FirstName
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <RadzenLabel Text="Last Name"/>
+                    </div>
+                    <div class="col-md-8">
+                        @systemAccountsRequest.LastName
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <RadzenLabel Text="BirthDate"/>
+                    </div>
+                    <div class="col-md-8">
+                        @systemAccountsRequest.BirthDate
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <RadzenLabel Text="Create eOffice account"/>
+                    </div>
+                    
+                    <div class="col-md-8">
+                        <RadzenCheckBox TValue="bool" @bind-value="@systemAccountsRequest.CreateEOfficeAccount" Disabled="true" Style="margin-right: 10px;"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <RadzenLabel Text="Create company email account"/>
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenCheckBox TValue="bool" @bind-value="@systemAccountsRequest.CreateEmail" Disabled="true" Style="margin-right: 10px;"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <RadzenLabel Text="Message"/>
+                    </div>
+                    <div class="col-md-8">
+                        @systemAccountsRequest.Message
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <RadzenLabel Text="Response message"/>
+                    </div>
+                    <div class="col-md-8">
+                        @systemAccountsRequest.ResponseMessage
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h3>
+                    Loading..
+                </h3>
+            }
+        </RadzenCard>
+
+    </div>
+    <div class="col-md-6">
+        <RadzenCard class="m-3" Style="height: 100%">
+            <div class="row">
+                <div class="col col-md-12 d-flex buttons-container">
+                    @if (onboarding != null)
+                    {
+                        @if (onboarding.IsLeaveRequestCreated)
+                        {
+                            <RadzenButton Icon="check_circle" ButtonStyle="ButtonStyle.Success" Text="Completed" Style="margin-right: 20px;"/>
+                        }
+                        else
+                        {
+                            <RadzenButton Icon="warning_amber" ButtonStyle="ButtonStyle.Warning" Text="Pending" Style="margin-right: 20px;"/>
+                        }
+                        <h2>Leave balance details</h2>
+                    }
+                </div>
+            </div>
+            
+            @if (leaveBalance != null)
+            {
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <RadzenLabel Text="Allocated days off" />
+                
+                    </div>
+                    <div class="col-md-8">
+                        @leaveBalance.DaysOff
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <RadzenLabel Text="Allocated learning days" />
+                    </div>
+                    <div class="col-md-8">
+                        @leaveBalance.LearningDays
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <RadzenLabel Text="Allocated unpaid days off" />
+                    </div>
+                    <div class="col-md-8">
+                        @leaveBalance.UnpaidDaysOff
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h3>Loading..</h3>
+            }
+           
+        </RadzenCard>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private OnboardingGetModel onboarding;
+    private SystemAccountsRequestGetModel systemAccountsRequest;
+    private LeaveBalanceModel leaveBalance;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var parsedId = Guid.Parse(Id);
+
+        onboarding = await _onboardingService.GetById(parsedId);
+        systemAccountsRequest = await _systemAccountsRequestService.GetByOnboardingId(parsedId);
+        leaveBalance = await _leaveBalanceService.GetByOnboardingId(parsedId);
+    }
+}

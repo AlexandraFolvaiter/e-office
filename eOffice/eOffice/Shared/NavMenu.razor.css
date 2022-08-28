@@ -4,7 +4,7 @@
 
 .top-row {
     height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    /* background-color: rgba(0,0,0,0.4); */
 }
 
 .navbar-brand {
@@ -39,6 +39,12 @@
         align-items: center;
         line-height: 3rem;
     }
+
+
+img {
+    height: 50px;
+    margin-left: 30px;
+}
 
 .nav-item ::deep a.active {
     background-color: rgba(255,255,255,0.25);

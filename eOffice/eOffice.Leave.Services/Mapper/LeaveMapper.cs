@@ -15,4 +15,14 @@ public static class LeaveMapper
             UnpaidDaysOff = model.UnpaidDaysOff
         };
     }
+    public static LeaveBalanceModel ToModel(this LeaveBalance model)
+    {
+        return new LeaveBalanceModel
+        {
+            OnboardingId = model.OnboardingId,
+            DaysOff = model.DaysOff,
+            LearningDays = model.LearningDays,
+            UnpaidDaysOff = model.UnpaidDaysOff
+        };
+    }
 }

@@ -1,0 +1,29 @@
+﻿@page "/"
+@using eOffice.Services
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+
+@layout GeneralLayout
+
+@inject NavigationManager _navigationManager
+@inject ProtectedLocalStorage BrowserStorage
+
+<div class="first-page-container">
+    <div class="text-container">
+        Login as
+    </div>
+
+    <div class="buttons-container">
+        <RadzenButton ButtonStyle="ButtonStyle.Info" Text="Employee" Click="async () => await SetUserAndNavigateToDashboard(UserManager.EmployeeId)" Style="width: 200px; margin: 10px;"/>
+        <RadzenButton ButtonStyle="ButtonStyle.Info" Text="Operator" Click="async () => await SetUserAndNavigateToDashboard(UserManager.OperatorId)" Style="width: 200px; margin: 10px;" />
+        <RadzenButton ButtonStyle="ButtonStyle.Info" Text="Manager" Click="async () => await SetUserAndNavigateToDashboard(UserManager.ManagerId)" Style="width: 200px; margin: 10px;" />
+    </div>
+</div>
+
+@code
+{
+    private async Task SetUserAndNavigateToDashboard(Guid id)
+    {
+        await BrowserStorage.SetAsync("userId", id);
+        _navigationManager.NavigateTo("dashboard");
+    }
+}

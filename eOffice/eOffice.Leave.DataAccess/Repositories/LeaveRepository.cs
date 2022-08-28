@@ -12,6 +12,11 @@ public class LeaveRepository : ILeaveRepository
         _context = context;
     }
 
+    public IQueryable<LeaveBalance> GetAll()
+    {
+        return _context.LeaveBalances;
+    }
+
     public void AddLeave(LeaveBalance leave)
     {
         _context.LeaveBalances.Add(leave);

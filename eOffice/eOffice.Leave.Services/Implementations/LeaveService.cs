@@ -20,6 +20,14 @@ public class LeaveService : ILeaveService
         _subPubConnection = connection.GetSubscriber();
     }
 
+    public LeaveBalanceModel GetByOnboardingId(Guid onboardingId)
+    {
+        return _repository
+            .GetAll()
+            .FirstOrDefault(l => l.OnboardingId.Equals(onboardingId))
+            .ToModel();
+    }
+
     public void Add(LeaveBalanceModel model)
     {
         var entity = model.ToEntity();

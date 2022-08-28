@@ -4,15 +4,17 @@
 
 @using eOffice.Onboarding.Models
 @using eOffice.Services.Contracts
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 
 @inject IOnboardingService _onboardingService
 @inject NavigationManager _navigationManager
+@inject ProtectedLocalStorage BrowserStorage
 
 <h1>Onboardings</h1>
 
 <p>This component is for onboarding new employees.</p>
 
-<RadzenTemplateForm Data="@onboarding" Submit="@((OnboardingModel args) => { Submit(); })">
+<RadzenTemplateForm Data="@onboarding" Submit="@(async (OnboardingModel args) => { await Submit(); })">
     <RadzenCard >
         <div class="row">
             <div class="col-md-6">
@@ -121,13 +123,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        onboarding.UserId = (await BrowserStorage.GetAsync<Guid>("userId")).Value;
     }
 
-    public void Submit()
+    public async Task Submit()
     {
-        onboarding.UserId = Guid.Parse("7ba0f49c-8f7e-4f90-b514-f920cbdc74ff");
-
-        _onboardingService.AddOnboarding(onboarding);
+        await _onboardingService.AddOnboarding(onboarding);
         NavigateToOnboardings();
     }
 

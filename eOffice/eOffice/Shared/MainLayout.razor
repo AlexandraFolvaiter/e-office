@@ -1,4 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using eOffice.Services
+@inherits LayoutComponentBase
+
+@inject ProtectedLocalStorage BrowserStorage
 
 <PageTitle>eOffice</PageTitle>
 
@@ -9,7 +13,10 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <span>
+                You are logged in as @role!
+            </span>
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">See more details</a>
         </div>
 
         <article class="content px-4">
@@ -22,3 +29,18 @@
 <RadzenNotification />
 <RadzenContextMenu />
 <RadzenTooltip />
+
+@code
+{
+    private string role;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var userId = (await BrowserStorage.GetAsync<Guid>("userId")).Value;
+            role = userId.GetRole();
+            StateHasChanged();
+        }
+    }
+}

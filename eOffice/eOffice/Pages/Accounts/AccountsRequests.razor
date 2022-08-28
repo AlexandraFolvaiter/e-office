@@ -1,12 +1,12 @@
 ﻿@page "/accounts-requests"
 
-<PageTitle>Accounts Requests</PageTitle>
 @using eOffice.Services.Contracts
 @using eOffice.SystemAccounts.Models
 
 @inject DialogService _dialogService
-@inject NavigationManager _nav
 @inject ISystemAccountsRequestService _systemAccountsRequests;
+
+<PageTitle>Accounts Requests</PageTitle>
 
 <h1>Accounts Requests</h1>
 
@@ -45,7 +45,6 @@ else
 
 @code {
     private IList<SystemAccountsRequestGetModel> _requests;
-    private Guid userId = Guid.Parse("7ba0f49c-8f7e-4f90-b514-f920cbdc74ff");
 
     protected override async Task OnInitializedAsync()
     {
@@ -56,8 +55,6 @@ else
         await _dialogService.OpenAsync<AccountsRequestsForm>(
             "Accounts Request Details",
                new Dictionary<string, object>() { { "Id", id} },
-               new DialogOptions() { Width = "700px", Height = "570px", Resizable = true, Draggable = true });
+               new DialogOptions { Width = "700px", Height = "570px", Resizable = true, Draggable = true });
     }
-
-    // patch => dialog
 }
