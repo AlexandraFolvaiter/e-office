@@ -1,23 +1,23 @@
 {
-    "app_name": "eOffice",  //Name of the app
-    "description": "Human resources platform.", // One line description
-    "hidden": "true", // Can be "true" or "false". If true, this app won't show up in Launchpad.
-    "rank": "25", // This is used to sort the apps in the launchpad. 1 to 20 are reserved. Enter greater than 20
-    "type": "Full App", //Can be "Building Block" or "Full App"
-    "contributed_by": "Community", // Can be "Redis Labs" or "Community" or "Partner"
-    "repo_url": "https://github.com/AlexandraFolvaiter/e-office", //This is the Gitub Repo's URL.
-    "download_url": "https://github.com/AlexandraFolvaiter/e-office/",//This is a direct link to the Github's download button so people can download it directly from the Marketplace
-    "hosted_url": "https://eofficeapp.azurewebsites.net/", //The URL of the app. if you are hosting this app somewhere
-    "quick_deploy": "false", //"true" if the project has Heroku, Vercel, Google deploy buttons
-    "deploy_buttons": [],//Deploy buttons for "heroku", "vercel" or "Google" in the form of objects.
-    "language": [".Net"], // Backend technologies: "JavaScript", "Java", "Python", "Go", "C#", "Ruby", "PHP", etc. 
-    "redis_commands": [], // Enter all the Redis commands
-    "redis_features": ["pubsub"],// Enter any core Redis feature or leave it blank.
-    "redis_modules": [], //Value can be one or more of "RediJSON", "", "RedisTimeseries", "RedisAI"  "RedisGears" or "RedisGraph" listed in an array. 
+    "app_name": "eOffice",
+    "description": "Human resources platform.",
+    "hidden": "true",
+    "rank": "25",
+    "type": "Full App",
+    "contributed_by": "Community",
+    "repo_url": "https://github.com/AlexandraFolvaiter/e-office",
+    "download_url": "https://github.com/AlexandraFolvaiter/e-office/",
+    "hosted_url": "https://eofficeapp.azurewebsites.net/",
+    "quick_deploy": "false",
+    "deploy_buttons": [],
+    "language": [".Net"],
+    "redis_commands": [],
+    "redis_features": ["pubsub"],
+    "redis_modules": [],
     "app_image_urls": [ "https://user-images.githubusercontent.com/17809789/187280074-fcc3ca59-bddc-435d-8137-a6b47761e516.png"
-    ], // Provide any image urls in an array.
-    "youtube_url": "https://www.youtube.com/watch?v=ornpa9Fs8YU", //Provide a Youtube link to your app's video
-    "special_tags": ["Hackathon"], // "Hackathon", "Paid", or any event names.
-    "verticals": ["Technology"], // Can be: "Healthcare", "Financial", "Tourism", "Retail", "Oil & Gas", "Manufacturing", "Technology","Education", "Construction"  
-    "markdown": "" // Link to the RAW Markdown.
+    ],
+    "youtube_url": "https://www.youtube.com/watch?v=ornpa9Fs8YU",
+    "special_tags": ["Hackathon"],
+    "verticals": ["Technology"],
+    "markdown": ""
 }
