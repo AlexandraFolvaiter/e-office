@@ -14,8 +14,7 @@
     "redis_commands": [],
     "redis_features": ["pubsub"],
     "redis_modules": [],
-    "app_image_urls": [ "https://user-images.githubusercontent.com/17809789/187280074-fcc3ca59-bddc-435d-8137-a6b47761e516.png"
-    ],
+    "app_image_urls": [ "https://user-images.githubusercontent.com/17809789/187280074-fcc3ca59-bddc-435d-8137-a6b47761e516.png"],
     "youtube_url": "https://www.youtube.com/watch?v=ornpa9Fs8YU",
     "special_tags": ["Hackathon"],
     "verticals": ["Technology"],
